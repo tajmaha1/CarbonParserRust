@@ -79,7 +79,7 @@ cargo install carbon-parser
 
 Або клонуйте репозиторій:
 ```bash
-git clone https://github.com/yourusername/carbon-parser
+git clone https://github.com/tajmaha1/carbon-parser
 cd carbon-parser
 cargo build --release
 ```
