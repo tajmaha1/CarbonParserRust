@@ -1,0 +1,96 @@
+// Граматика мови Carbon
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+COMMENT = _{ line_comment | block_comment }
+line_comment = _{ "//" ~ (!"\n" ~ ANY)* }
+block_comment = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/" }
+
+// Головне правило програми
+program = { SOI ~ (function_decl | var_decl)* ~ EOI }
+
+// Декларація функції
+// fn FunctionName(param: Type) -> ReturnType { ... }
+function_decl = {
+    "fn" ~ identifier ~ "(" ~ parameter_list? ~ ")" ~ 
+    ("->" ~ type_name)? ~ block
+}
+
+parameter_list = { parameter ~ ("," ~ parameter)* }
+parameter = { identifier ~ ":" ~ type_name }
+
+// Декларація змінної
+// var variable_name: Type = value;
+var_decl = {
+    "var" ~ identifier ~ ":" ~ type_name ~ 
+    ("=" ~ expression)? ~ ";"
+}
+
+// Блок коду
+block = { "{" ~ statement* ~ "}" }
+
+// Оператори
+statement = {
+    var_decl
+    | return_stmt
+    | expression_stmt
+}
+
+return_stmt = { "return" ~ expression? ~ ";" }
+expression_stmt = { expression ~ ";" }
+
+// Вирази
+expression = {
+    binary_expr
+    | function_call
+    | literal
+    | identifier
+    | "(" ~ expression ~ ")"
+}
+
+binary_expr = {
+    primary ~ (binary_op ~ primary)+
+}
+
+primary = {
+    function_call
+    | literal
+    | identifier
+    | "(" ~ expression ~ ")"
+}
+
+binary_op = {
+    "+" | "-" | "*" | "/" | "%" |
+    "==" | "!=" | "<" | ">" | "<=" | ">=" |
+    "&&" | "||"
+}
+
+function_call = {
+    identifier ~ "(" ~ argument_list? ~ ")"
+}
+
+argument_list = {
+    expression ~ ("," ~ expression)*
+}
+
+// Типи даних
+type_name = {
+    "i32" | "i64" | "f32" | "f64" | 
+    "bool" | "String" | identifier
+}
+
+// Літерали
+literal = {
+    bool_literal
+    | float_literal
+    | integer_literal
+    | string_literal
+}
+
+integer_literal = @{ "-"? ~ ASCII_DIGIT+ }
+float_literal = @{ "-"? ~ ASCII_DIGIT+ ~ "." ~ ASCII_DIGIT+ }
+bool_literal = { "true" | "false" }
+string_literal = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+
+// Ідентифікатори
+identifier = @{
+    (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")*
+}
