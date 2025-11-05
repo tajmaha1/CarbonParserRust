@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["ParseError","Rule"],"fn":["parse_carbon","parse_expression","parse_function_decl","parse_type_name","parse_var_decl"],"struct":["CarbonParser"],"type":["ParseResult"]};
