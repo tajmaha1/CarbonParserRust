@@ -2,7 +2,6 @@ use anyhow::Result;
 use carbon_parser::{
     parse_carbon, parse_expression, parse_function_decl, parse_type_name, parse_var_decl,
 };
-
 mod function_decl_tests {
     use super::*;
 

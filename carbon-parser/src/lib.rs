@@ -16,8 +16,6 @@
 //!
 //! let result = parse_carbon(code);
 //! assert!(result.is_ok());
-//! ```
-
 use pest::Parser;
 use pest_derive::Parser;
 use thiserror::Error;
@@ -30,16 +28,13 @@ pub struct CarbonParser;
 /// Помилки парсингу
 #[derive(Error, Debug)]
 pub enum ParseError {
-    /// Синтаксична помилка під час парсингу
     #[error("Синтаксична помилка: {0}")]
     SyntaxError(String),
 
-    /// Помилка від Pest парсера
     #[error("Помилка парсера: {0}")]
     PestError(#[from] pest::error::Error<Rule>),
 }
 
-/// Результат парсингу
 pub type ParseResult<T> = Result<T, ParseError>;
 
 /// Парсить код Carbon та повертає дерево розбору
@@ -66,7 +61,6 @@ pub fn parse_carbon(input: &str) -> ParseResult<pest::iterators::Pairs<Rule>> {
 }
 
 /// Парсить декларацію функції
-///
 /// Декларація функції має форму:
 /// ```carbon
 /// fn function_name(param1: Type1, param2: Type2) -> ReturnType {
@@ -96,7 +90,6 @@ pub fn parse_function_decl(input: &str) -> ParseResult<pest::iterators::Pairs<Ru
 }
 
 /// Парсить декларацію змінної
-///
 /// Декларація змінної має форму:
 /// ```carbon
 /// var variable_name: Type = initial_value;

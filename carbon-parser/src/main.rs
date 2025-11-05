@@ -83,7 +83,6 @@ fn parse_file(path: &PathBuf, verbose: bool) -> Result<(), Box<dyn std::error::E
         }
     }
 }
-
 fn print_pair(pair: pest::iterators::Pair<carbon_parser::Rule>, indent: usize) {
     let indent_str = "  ".repeat(indent);
     println!(
