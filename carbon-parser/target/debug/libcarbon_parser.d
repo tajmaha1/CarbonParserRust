@@ -1,0 +1,1 @@
+/Users/daniilpanasiuk/Desktop/CarbonParserRust/carbon-parser/target/debug/libcarbon_parser.rlib: /Users/daniilpanasiuk/Desktop/CarbonParserRust/carbon-parser/src/carbon.pest /Users/daniilpanasiuk/Desktop/CarbonParserRust/carbon-parser/src/lib.rs
