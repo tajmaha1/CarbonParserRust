@@ -26,8 +26,8 @@
 //!
 //! ```toml
 //! [dependencies]
-//! carbon-parser = "0.1.0"
-//! pest = "2.0"
+//! carbon-parser = "0.1.2"
+//! pest = "2.7"
 //! ```
 //!
 //! ## Quick Start

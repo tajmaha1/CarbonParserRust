@@ -1,9 +1,9 @@
 [package]
 name = "carbon-parser"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Daniil Cherniavskyi"]
-description = "Парсер для мови програмування Carbon від Google, що підтримує базовий синтаксис включаючи декларації функцій, змінних та типів"
+description = "A parser for Google's Carbon programming language, supporting basic syntax including function, variable, and type declarations."
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/tajmaha1/CarbonParserRust.git"
 keywords = ["parser", "carbon", "pest", "compiler"]
