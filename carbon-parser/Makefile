@@ -1,137 +1,137 @@
 .PHONY: all build run test fmt clippy clean pre-commit help doc
 
-# Колір для виводу
+# Colors for output
 GREEN := \033[0;32m
 NC := \033[0m # No Color
 
 all: build
 
-## Збірка проекту
+## Build the project
 build:
-	@echo "$(GREEN)Збірка проекту...$(NC)"
-	cargo build --release
+    @echo "$(GREEN)Building the project...$(NC)"
+    cargo build --release
 
-## Запуск програми (приклад з тестовим файлом)
+## Run the program (example with a test file)
 run:
-	@echo "$(GREEN)Запуск програми...$(NC)"
-	@echo 'fn main() -> i32 { var x: i32 = 42; return x; }' > example.carbon
-	cargo run -- parse example.carbon --verbose
-	@rm -f example.carbon
+    @echo "$(GREEN)Running the program...$(NC)"
+    @echo 'fn main() -> i32 { var x: i32 = 42; return x; }' > example.carbon
+    cargo run -- parse example.carbon --verbose
+    @rm -f example.carbon
 
-## Запуск всіх тестів
+## Run all tests
 test:
-	@echo "$(GREEN)Запуск тестів...$(NC)"
-	cargo test --all
+    @echo "$(GREEN)Running tests...$(NC)"
+    cargo test --all
 
-## Запуск тестів з детальним виводом
+## Run tests with detailed output
 test-verbose:
-	@echo "$(GREEN)Запуск тестів з детальним виводом...$(NC)"
-	cargo test --all -- --nocapture
+    @echo "$(GREEN)Running tests with detailed output...$(NC)"
+    cargo test --all -- --nocapture
 
-## Форматування коду
+## Format the code
 fmt:
-	@echo "$(GREEN)Форматування коду...$(NC)"
-	cargo fmt --all
+    @echo "$(GREEN)Formatting the code...$(NC)"
+    cargo fmt --all
 
-## Перевірка форматування без змін
+## Check formatting without making changes
 fmt-check:
-	@echo "$(GREEN)Перевірка форматування...$(NC)"
-	cargo fmt --all -- --check
+    @echo "$(GREEN)Checking formatting...$(NC)"
+    cargo fmt --all -- --check
 
-## Лінтинг коду
+## Lint the code
 clippy:
-	@echo "$(GREEN)Лінтинг з Clippy...$(NC)"
-	cargo clippy --all-targets --all-features -- -D warnings
+    @echo "$(GREEN)Linting with Clippy...$(NC)"
+    cargo clippy --all-targets --all-features -- -D warnings
 
-## Генерація документації
+## Generate documentation
 doc:
-	@echo "$(GREEN)Генерація документації...$(NC)"
-	cargo doc --no-deps --open
+    @echo "$(GREEN)Generating documentation...$(NC)"
+    cargo doc --no-deps --open
 
-## Генерація документації без відкриття
+## Generate documentation without opening
 doc-build:
-	@echo "$(GREEN)Генерація документації...$(NC)"
-	cargo doc --no-deps
+    @echo "$(GREEN)Generating documentation...$(NC)"
+    cargo doc --no-deps
 
-## Перевірка перед комітом (форматування + лінтинг + тести)
+## Pre-commit checks (formatting + linting + tests)
 pre-commit: fmt clippy test
-	@echo "$(GREEN)✓ Всі перевірки пройдені успішно!$(NC)"
+    @echo "$(GREEN)✓ All checks passed successfully!$(NC)"
 
-## Очистка збірки
+## Clean the build
 clean:
-	@echo "$(GREEN)Очистка...$(NC)"
-	cargo clean
-	@rm -f example.carbon
+    @echo "$(GREEN)Cleaning...$(NC)"
+    cargo clean
+    @rm -f example.carbon
 
-## Перевірка безпеки залежностей
+## Audit dependencies for security issues
 audit:
-	@echo "$(GREEN)Перевірка безпеки залежностей...$(NC)"
-	cargo audit
+    @echo "$(GREEN)Auditing dependencies for security issues...$(NC)"
+    cargo audit
 
-## Оновлення залежностей
+## Update dependencies
 update:
-	@echo "$(GREEN)Оновлення залежностей...$(NC)"
-	cargo update
+    @echo "$(GREEN)Updating dependencies...$(NC)"
+    cargo update
 
-## Встановлення проекту глобально
+## Install the project globally
 install:
-	@echo "$(GREEN)Встановлення carbon-parser...$(NC)"
-	cargo install --path .
+    @echo "$(GREEN)Installing carbon-parser...$(NC)"
+    cargo install --path .
 
-## Видалення встановленого проекту
+## Uninstall the globally installed project
 uninstall:
-	@echo "$(GREEN)Видалення carbon-parser...$(NC)"
-	cargo uninstall carbon-parser
+    @echo "$(GREEN)Uninstalling carbon-parser...$(NC)"
+    cargo uninstall carbon-parser
 
-## Створення тестового файлу
+## Create a test file
 create-example:
-	@echo "$(GREEN)Створення тестового файлу example.carbon...$(NC)"
-	@echo 'fn factorial(n: i32) -> i32 {' > example.carbon
-	@echo '    var result: i32 = 1;' >> example.carbon
-	@echo '    return result;' >> example.carbon
-	@echo '}' >> example.carbon
-	@echo '' >> example.carbon
-	@echo 'fn main() -> i32 {' >> example.carbon
-	@echo '    var x: i32 = 5;' >> example.carbon
-	@echo '    var y: i32 = 10;' >> example.carbon
-	@echo '    return x;' >> example.carbon
-	@echo '}' >> example.carbon
-	@echo "Файл створено: example.carbon"
+    @echo "$(GREEN)Creating test file example.carbon...$(NC)"
+    @echo 'fn factorial(n: i32) -> i32 {' > example.carbon
+    @echo '    var result: i32 = 1;' >> example.carbon
+    @echo '    return result;' >> example.carbon
+    @echo '}' >> example.carbon
+    @echo '' >> example.carbon
+    @echo 'fn main() -> i32 {' >> example.carbon
+    @echo '    var x: i32 = 5;' >> example.carbon
+    @echo '    var y: i32 = 10;' >> example.carbon
+    @echo '    return x;' >> example.carbon
+    @echo '}' >> example.carbon
+    @echo "File created: example.carbon"
 
-## Парсинг тестового файлу
+## Parse the test file
 parse-example: create-example
-	@echo "$(GREEN)Парсинг example.carbon...$(NC)"
-	cargo run -- parse example.carbon --verbose
+    @echo "$(GREEN)Parsing example.carbon...$(NC)"
+    cargo run -- parse example.carbon --verbose
 
-## Перевірка покриття тестами (потребує cargo-tarpaulin)
+## Check test coverage (requires cargo-tarpaulin)
 coverage:
-	@echo "$(GREEN)Аналіз покриття тестами...$(NC)"
-	cargo tarpaulin --out Html --output-dir coverage
+    @echo "$(GREEN)Analyzing test coverage...$(NC)"
+    cargo tarpaulin --out Html --output-dir coverage
 
-## Бенчмарки (якщо є)
+## Run benchmarks (if available)
 bench:
-	@echo "$(GREEN)Запуск бенчмарків...$(NC)"
-	cargo bench
+    @echo "$(GREEN)Running benchmarks...$(NC)"
+    cargo bench
 
-## Показати допомогу
+## Show help
 help:
-	@echo "$(GREEN)Доступні команди:$(NC)"
-	@echo "  make build         - Збірка проекту"
-	@echo "  make run           - Запуск програми з прикладом"
-	@echo "  make test          - Запуск всіх тестів"
-	@echo "  make test-verbose  - Запуск тестів з детальним виводом"
-	@echo "  make fmt           - Форматування коду"
-	@echo "  make fmt-check     - Перевірка форматування"
-	@echo "  make clippy        - Лінтинг коду"
-	@echo "  make doc           - Генерація та відкриття документації"
-	@echo "  make doc-build     - Генерація документації"
-	@echo "  make pre-commit    - Всі перевірки перед комітом"
-	@echo "  make clean         - Очистка збірки"
-	@echo "  make audit         - Перевірка безпеки"
-	@echo "  make update        - Оновлення залежностей"
-	@echo "  make install       - Встановлення глобально"
-	@echo "  make uninstall     - Видалення"
-	@echo "  make create-example - Створення тестового файлу"
-	@echo "  make parse-example - Парсинг тестового файлу"
-	@echo "  make coverage      - Аналіз покриття"
-	@echo "  make help          - Показати цю допомогу"
+    @echo "$(GREEN)Available commands:$(NC)"
+    @echo "  make build         - Build the project"
+    @echo "  make run           - Run the program with an example"
+    @echo "  make test          - Run all tests"
+    @echo "  make test-verbose  - Run tests with detailed output"
+    @echo "  make fmt           - Format the code"
+    @echo "  make fmt-check     - Check formatting"
+    @echo "  make clippy        - Lint the code"
+    @echo "  make doc           - Generate and open documentation"
+    @echo "  make doc-build     - Generate documentation"
+    @echo "  make pre-commit    - Run all pre-commit checks"
+    @echo "  make clean         - Clean the build"
+    @echo "  make audit         - Audit dependencies"
+    @echo "  make update        - Update dependencies"
+    @echo "  make install       - Install globally"
+    @echo "  make uninstall     - Uninstall"
+    @echo "  make create-example - Create a test file"
+    @echo "  make parse-example - Parse the test file"
+    @echo "  make coverage      - Analyze test coverage"
+    @echo "  make help          - Show this help"
