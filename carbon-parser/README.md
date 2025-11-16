@@ -59,16 +59,16 @@ The parsing result is a `Pairs<Rule>` from Pest, which represents the parse tree
 ```
 Program
 ├── FunctionDecl*
-│   ├── Identifier (назва функції)
+│   ├── Identifier (function name)
 │   ├── ParameterList
-│   │   └── Parameter* (ім'я: тип)
-│   ├── ReturnType (опціонально)
+│   │   └── Parameter* (name: type)
+│   ├── ReturnType (optional)
 │   └── Block
 │       └── Statement*
 └── VarDecl*
-    ├── Identifier (назва змінної)
+    ├── Identifier (variable name)
     ├── TypeName
-    └── Expression (опціонально)
+    └── Expression (optional)
 ```
 
 ## Installation:
@@ -110,7 +110,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     "#;
     
     let parse_tree = parse_carbon(source_code)?;
-    println!("Парсинг успішний!");
+    println!("Parsing successful!");
     
     Ok(())
 }
