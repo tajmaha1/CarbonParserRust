@@ -1,8 +1,8 @@
 //! # Carbon Parser
 //!
-//! Бібліотека для парсингу мови програмування Carbon від Google.
+//! A library for parsing Google's Carbon programming language.
 //!
-//! ## Приклад використання
+//! ## Example Usage
 //!
 //! ```rust
 //! use carbon_parser::parse_carbon;
@@ -16,38 +16,39 @@
 //!
 //! let result = parse_carbon(code);
 //! assert!(result.is_ok());
+
 use pest::Parser;
 use pest_derive::Parser;
 use thiserror::Error;
 
-/// Парсер Carbon, згенерований за допомогою Pest
+/// Carbon parser generated using Pest
 #[derive(Parser)]
 #[grammar = "carbon.pest"]
 pub struct CarbonParser;
 
-/// Помилки парсингу
+/// Parsing errors
 #[derive(Error, Debug)]
 pub enum ParseError {
-    #[error("Синтаксична помилка: {0}")]
+    #[error("Syntax error: {0}")]
     SyntaxError(String),
 
-    #[error("Помилка парсера: {0}")]
+    #[error("Parser error: {0}")]
     PestError(#[from] pest::error::Error<Rule>),
 }
 
 pub type ParseResult<T> = Result<T, ParseError>;
 
-/// Парсить код Carbon та повертає дерево розбору
+/// Parses Carbon code and returns a parse tree
 ///
-/// # Аргументи
+/// # Arguments
 ///
-/// * `input` - Вхідний код Carbon як рядок
+/// * `input` - Input Carbon code as a string
 ///
-/// # Повертає
+/// # Returns
 ///
-/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Результат парсингу
+/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Parsing result
 ///
-/// # Приклад
+/// # Example
 ///
 /// ```rust
 /// use carbon_parser::parse_carbon;
@@ -60,23 +61,23 @@ pub fn parse_carbon(input: &str) -> ParseResult<pest::iterators::Pairs<Rule>> {
     CarbonParser::parse(Rule::program, input).map_err(ParseError::from)
 }
 
-/// Парсить декларацію функції
-/// Декларація функції має форму:
+/// Parses a function declaration
+/// A function declaration has the following form:
 /// ```carbon
 /// fn function_name(param1: Type1, param2: Type2) -> ReturnType {
-///     // тіло функції
+///     // function body
 /// }
 /// ```
 ///
-/// # Аргументи
+/// # Arguments
 ///
-/// * `input` - Вхідний код з декларацією функції
+/// * `input` - Input code with a function declaration
 ///
-/// # Повертає
+/// # Returns
 ///
-/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Результат парсингу
+/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Parsing result
 ///
-/// # Приклад
+/// # Example
 ///
 /// ```rust
 /// use carbon_parser::parse_function_decl;
@@ -89,21 +90,21 @@ pub fn parse_function_decl(input: &str) -> ParseResult<pest::iterators::Pairs<Ru
     CarbonParser::parse(Rule::function_decl, input).map_err(ParseError::from)
 }
 
-/// Парсить декларацію змінної
-/// Декларація змінної має форму:
+/// Parses a variable declaration
+/// A variable declaration has the following form:
 /// ```carbon
 /// var variable_name: Type = initial_value;
 /// ```
 ///
-/// # Аргументи
+/// # Arguments
 ///
-/// * `input` - Вхідний код з декларацією змінної
+/// * `input` - Input code with a variable declaration
 ///
-/// # Повертає
+/// # Returns
 ///
-/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Результат парсингу
+/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Parsing result
 ///
-/// # Приклад
+/// # Example
 ///
 /// ```rust
 /// use carbon_parser::parse_var_decl;
@@ -116,19 +117,19 @@ pub fn parse_var_decl(input: &str) -> ParseResult<pest::iterators::Pairs<Rule>> 
     CarbonParser::parse(Rule::var_decl, input).map_err(ParseError::from)
 }
 
-/// Парсить вираз
+/// Parses an expression
 ///
-/// Вирази включають літерали, ідентифікатори, бінарні операції та виклики функцій.
+/// Expressions include literals, identifiers, binary operations, and function calls.
 ///
-/// # Аргументи
+/// # Arguments
 ///
-/// * `input` - Вхідний код з виразом
+/// * `input` - Input code with an expression
 ///
-/// # Повертає
+/// # Returns
 ///
-/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Результат парсингу
+/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Parsing result
 ///
-/// # Приклад
+/// # Example
 ///
 /// ```rust
 /// use carbon_parser::parse_expression;
@@ -141,19 +142,19 @@ pub fn parse_expression(input: &str) -> ParseResult<pest::iterators::Pairs<Rule>
     CarbonParser::parse(Rule::expression, input).map_err(ParseError::from)
 }
 
-/// Парсить ім'я типу
+/// Parses a type name
 ///
-/// Підтримувані типи: i32, i64, f32, f64, bool, String та користувацькі типи.
+/// Supported types: i32, i64, f32, f64, bool, String, and custom types.
 ///
-/// # Аргументи
+/// # Arguments
 ///
-/// * `input` - Вхідний код з іменем типу
+/// * `input` - Input code with a type name
 ///
-/// # Повертає
+/// # Returns
 ///
-/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Результат парсингу
+/// * `ParseResult<pest::iterators::Pairs<Rule>>` - Parsing result
 ///
-/// # Приклад
+/// # Example
 ///
 /// ```rust
 /// use carbon_parser::parse_type_name;
