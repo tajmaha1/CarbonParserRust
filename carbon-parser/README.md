@@ -27,7 +27,7 @@ The parser supports the following Carbon constructs:
 - **Variable Declarations**: `var variable_name: Type = value;`
 - **Data Types**: basic types (`i32`, `f64`, `bool`, `String`)
 - **Expressions**: arithmetic operations, function calls, literals
-- **Коментарі**: single-line (`//`) and multi-line (`/* */`)
+- **Comments**: single-line (`//`) and multi-line (`/* */`)
 
 ### Grammar Rules:
 ```pest
