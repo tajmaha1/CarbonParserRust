@@ -5,9 +5,9 @@ use std::path::PathBuf;
 
 #[derive(Parser)]
 #[command(name = "carbon-parser")]
-#[command(author = "Your Name <your.email@example.com>")]
+#[command(author = "Daniil Cherniavskyi")]
 #[command(version = "0.1.0")]
-#[command(about = "Парсер для мови Carbon", long_about = None)]
+#[command(about = "A parser for the Carbon language", long_about = None)]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -32,15 +32,15 @@ fn main() {
     match cli.command {
         Commands::Parse { file, verbose } => {
             if let Err(e) = parse_file(&file, verbose) {
-                eprintln!("Помилка: {}", e);
+                eprintln!("Error: {}", e);
                 std::process::exit(1);
             }
         }
         Commands::Authors => {
             println!("Carbon Parser v0.1.0");
-            println!("Автор: Your Name <your.email@example.com>");
-            println!("\nПарсер для мови програмування Carbon від Google");
-            println!("Написаний на Rust з використанням бібліотеки Pest");
+            println!("Author: Daniil Cherniavskyi");
+            println!("\nParser for Google's Carbon programming language");
+            println!("Built with Rust and the Pest library");
         }
     }
 }
@@ -48,22 +48,22 @@ fn main() {
 fn parse_file(path: &PathBuf, verbose: bool) -> Result<(), Box<dyn std::error::Error>> {
     let content = fs::read_to_string(path).map_err(|e| {
         format!(
-            "Не вдалося прочитати файл '{}': {}",
+            "Failed to read file '{}': {}",
             path.display(),
             e
         )
     })?;
 
-    println!("Парсинг файлу: {}", path.display());
-    println!("Розмір: {} байт", content.len());
+    println!("Parsing file: {}", path.display());
+    println!("Size: {} bytes", content.len());
     println!();
 
     match parse_carbon(&content) {
         Ok(pairs) => {
-            println!("Парсинг успішний!");
+            println!("Parsing successful!");
 
             if verbose {
-                println!("\nДерево розбору:");
+                println!("\nParse tree:");
                 println!("{}", "=".repeat(60));
                 for pair in pairs {
                     print_pair(pair, 0);
@@ -73,12 +73,12 @@ fn parse_file(path: &PathBuf, verbose: bool) -> Result<(), Box<dyn std::error::E
             Ok(())
         }
         Err(ParseError::PestError(e)) => {
-            println!("Помилка парсингу:\n");
+            println!("Parse error:\n");
             eprintln!("{}", e);
             Err(Box::new(e))
         }
         Err(e) => {
-            println!("Помилка: {}", e);
+            println!("Error: {}", e);
             Err(Box::new(e))
         }
     }
