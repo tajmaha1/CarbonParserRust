@@ -1,6 +1,6 @@
 [package]
 name = "carbon-parser"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Daniil Cherniavskyi"]
 description = "Парсер для мови програмування Carbon від Google, що підтримує базовий синтаксис включаючи декларації функцій, змінних та типів"

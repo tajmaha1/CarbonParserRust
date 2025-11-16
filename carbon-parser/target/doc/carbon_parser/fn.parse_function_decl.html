@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Parses a single function declaration."><title>parse_function_decl in carbon_parser - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-aa0817cf.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="carbon_parser" data-themes="" data-resource-suffix="" data-rustdoc-version="1.90.0 (1159e78c4 2025-09-14)" data-channel="1.90.0" data-search-js="search-fa3e91e5.js" data-settings-js="settings-5514c975.js" ><script src="../static.files/storage-68b7e25d.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-eebb9057.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-32bb7600.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../carbon_parser/index.html">carbon_<wbr>parser</a><span class="version">0.1.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">parse_<wbr>function_<wbr>decl</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#carbon-function-syntax" title="Carbon Function Syntax">Carbon Function Syntax</a></li><li><a href="#arguments" title="Arguments">Arguments</a></li><li><a href="#returns" title="Returns">Returns</a></li><li><a href="#grammar-rule" title="Grammar Rule">Grammar Rule</a></li><li><a href="#examples" title="Examples">Examples</a><ul><li><a href="#function-without-parameters" title="Function Without Parameters">Function Without Parameters</a></li><li><a href="#function-with-single-parameter" title="Function With Single Parameter">Function With Single Parameter</a></li><li><a href="#function-with-multiple-parameters" title="Function With Multiple Parameters">Function With Multiple Parameters</a></li><li><a href="#function-without-return-type" title="Function Without Return Type">Function Without Return Type</a></li><li><a href="#function-with-mixed-parameter-types" title="Function With Mixed Parameter Types">Function With Mixed Parameter Types</a></li></ul></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate carbon_<wbr>parser</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">carbon_parser</a></div><h1>Function <span class="fn">parse_function_decl</span><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/carbon_parser/lib.rs.html#660-662">Source</a> </span></div><pre class="rust item-decl"><code>pub fn parse_function_decl(input: &amp;<a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.str.html">str</a>) -&gt; <a class="type" href="type.ParseResult.html" title="type carbon_parser::ParseResult">ParseResult</a>&lt;<a class="struct" href="../pest/iterators/pairs/struct.Pairs.html" title="struct pest::iterators::pairs::Pairs">Pairs</a>&lt;'_, <a class="enum" href="enum.Rule.html" title="enum carbon_parser::Rule">Rule</a>&gt;&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Parses a single function declaration.</p>
+<p>Use this function when you need to parse an individual function definition
+in isolation, without requiring a complete program context. This is useful
+for testing, code generation, incremental parsing, or working with code fragments.</p>
+<h2 id="carbon-function-syntax"><a class="doc-anchor" href="#carbon-function-syntax">§</a>Carbon Function Syntax</h2>
+<p>A function declaration in Carbon has the following structure:</p>
+<div class="example-wrap"><pre class="language-text"><code>fn function_name(param1: Type1, param2: Type2) -&gt; ReturnType {
+    // function body statements
+    return expression;
+}</code></pre></div>
+<p>Components:</p>
+<ul>
+<li><code>fn</code> keyword to start the declaration</li>
+<li>Function name (identifier)</li>
+<li>Parameter list in parentheses (may be empty)</li>
+<li>Optional return type preceded by <code>-&gt;</code></li>
+<li>Function body in braces</li>
+</ul>
+<h2 id="arguments"><a class="doc-anchor" href="#arguments">§</a>Arguments</h2>
+<ul>
+<li><code>input</code> - A string slice containing exactly one function declaration</li>
+</ul>
+<h2 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h2>
+<p>Returns a <code>ParseResult</code> containing the parsed function declaration tree.</p>
+<h2 id="grammar-rule"><a class="doc-anchor" href="#grammar-rule">§</a>Grammar Rule</h2>
+<p>This function uses the <code>function_decl</code> grammar rule from <code>carbon.pest</code>.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2><h3 id="function-without-parameters"><a class="doc-anchor" href="#function-without-parameters">§</a>Function Without Parameters</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>carbon_parser::parse_function_decl;
+
+<span class="kw">let </span>code = <span class="string">"fn test() -&gt; i32 { return 42; }"</span>;
+<span class="kw">let </span>result = parse_function_decl(code);
+<span class="macro">assert!</span>(result.is_ok());</code></pre></div>
+<h3 id="function-with-single-parameter"><a class="doc-anchor" href="#function-with-single-parameter">§</a>Function With Single Parameter</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>carbon_parser::parse_function_decl;
+
+<span class="kw">let </span>code = <span class="string">"fn square(x: i32) -&gt; i32 { return x; }"</span>;
+<span class="kw">let </span>result = parse_function_decl(code);
+<span class="macro">assert!</span>(result.is_ok());</code></pre></div>
+<h3 id="function-with-multiple-parameters"><a class="doc-anchor" href="#function-with-multiple-parameters">§</a>Function With Multiple Parameters</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>carbon_parser::parse_function_decl;
+
+<span class="kw">let </span>code = <span class="string">"fn add(x: i32, y: i32, z: i32) -&gt; i32 { return x; }"</span>;
+<span class="kw">let </span>result = parse_function_decl(code);
+<span class="macro">assert!</span>(result.is_ok());</code></pre></div>
+<h3 id="function-without-return-type"><a class="doc-anchor" href="#function-without-return-type">§</a>Function Without Return Type</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>carbon_parser::parse_function_decl;
+
+<span class="kw">let </span>code = <span class="string">"fn print_hello() { return 0; }"</span>;
+<span class="kw">let </span>result = parse_function_decl(code);
+<span class="macro">assert!</span>(result.is_ok());</code></pre></div>
+<h3 id="function-with-mixed-parameter-types"><a class="doc-anchor" href="#function-with-mixed-parameter-types">§</a>Function With Mixed Parameter Types</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>carbon_parser::parse_function_decl;
+
+<span class="kw">let </span>code = <span class="string">"fn process(name: String, age: i32, active: bool) -&gt; bool { return active; }"</span>;
+<span class="kw">let </span>result = parse_function_decl(code);
+<span class="macro">assert!</span>(result.is_ok());</code></pre></div>
+</div></details></section></div></main></body></html>
