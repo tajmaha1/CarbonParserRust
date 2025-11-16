@@ -11,7 +11,7 @@ mod function_decl_tests {
         let result = parse_function_decl(code);
         assert!(
             result.is_ok(),
-            "Проста функція без параметрів повинна парситися"
+            "A simple function without parameters should parse successfully"
         );
         Ok(())
     }
@@ -22,7 +22,7 @@ mod function_decl_tests {
         let result = parse_function_decl(code);
         assert!(
             result.is_ok(),
-            "Функція з одним параметром повинна парситися"
+            "A function with a single parameter should parse successfully"
         );
         Ok(())
     }
@@ -33,7 +33,7 @@ mod function_decl_tests {
         let result = parse_function_decl(code);
         assert!(
             result.is_ok(),
-            "Функція з декількома параметрами повинна парситися"
+            "A function with multiple parameters should parse successfully"
         );
         Ok(())
     }
@@ -44,7 +44,7 @@ mod function_decl_tests {
         let result = parse_function_decl(code);
         assert!(
             result.is_ok(),
-            "Функція без типу повернення повинна парситися"
+            "A function without a return type should parse successfully"
         );
         Ok(())
     }
@@ -56,7 +56,7 @@ mod function_decl_tests {
         let result = parse_function_decl(code);
         assert!(
             result.is_ok(),
-            "Функція з різними типами повинна парситися"
+            "A function with different parameter types should parse successfully"
         );
         Ok(())
     }
@@ -69,7 +69,7 @@ mod var_decl_tests {
     fn test_var_with_initialization() -> Result<()> {
         let code = "var x: i32 = 42;";
         let result = parse_var_decl(code);
-        assert!(result.is_ok(), "Змінна з ініціалізацією повинна парситися");
+        assert!(result.is_ok(), "A variable with initialization should parse successfully");
         Ok(())
     }
 
@@ -79,7 +79,7 @@ mod var_decl_tests {
         let result = parse_var_decl(code);
         assert!(
             result.is_ok(),
-            "Змінна без ініціалізації повинна парситися"
+            "A variable without initialization should parse successfully"
         );
         Ok(())
     }
@@ -90,7 +90,7 @@ mod var_decl_tests {
         let result = parse_var_decl(code);
         assert!(
             result.is_ok(),
-            "Змінна типу String з ініціалізацією повинна парситися"
+            "A variable of type String with initialization should parse successfully"
         );
         Ok(())
     }
@@ -101,7 +101,7 @@ mod var_decl_tests {
         let result = parse_var_decl(code);
         assert!(
             result.is_ok(),
-            "Змінна з float значенням повинна парситися"
+            "A variable with a float value should parse successfully"
         );
         Ok(())
     }
@@ -110,7 +110,7 @@ mod var_decl_tests {
     fn test_var_with_expression() -> Result<()> {
         let code = "var sum: i32 = 10 + 20;";
         let result = parse_var_decl(code);
-        assert!(result.is_ok(), "Змінна з виразом повинна парситися");
+        assert!(result.is_ok(), "A variable with an expression should parse successfully");
         Ok(())
     }
 }
@@ -122,7 +122,7 @@ mod expression_tests {
     fn test_integer_literal() -> Result<()> {
         let code = "42";
         let result = parse_expression(code);
-        assert!(result.is_ok(), "Цілочисельний літерал повинен парситися");
+        assert!(result.is_ok(), "An integer literal should parse successfully");
         Ok(())
     }
 
@@ -130,7 +130,7 @@ mod expression_tests {
     fn test_float_literal() -> Result<()> {
         let code = "3.14";
         let result = parse_expression(code);
-        assert!(result.is_ok(), "Float літерал повинен парситися");
+        assert!(result.is_ok(), "A float literal should parse successfully");
         Ok(())
     }
 
@@ -145,7 +145,7 @@ mod expression_tests {
     fn test_string_literal() -> Result<()> {
         let code = r#""Hello, World!""#;
         let result = parse_expression(code);
-        assert!(result.is_ok(), "Рядковий літерал повинен парситися");
+        assert!(result.is_ok(), "A string literal should parse successfully");
         Ok(())
     }
 
@@ -153,7 +153,7 @@ mod expression_tests {
     fn test_identifier() -> Result<()> {
         let code = "variable_name";
         let result = parse_expression(code);
-        assert!(result.is_ok(), "Ідентифікатор повинен парситися");
+        assert!(result.is_ok(), "An identifier should parse successfully");
         Ok(())
     }
 
@@ -161,7 +161,7 @@ mod expression_tests {
     fn test_binary_addition() -> Result<()> {
         let code = "10 + 20";
         let result = parse_expression(code);
-        assert!(result.is_ok(), "Бінарне додавання повинно парситися");
+        assert!(result.is_ok(), "Binary addition should parse successfully");
         Ok(())
     }
 
@@ -171,7 +171,7 @@ mod expression_tests {
         let result = parse_expression(code);
         assert!(
             result.is_ok(),
-            "Складний бінарний вираз повинен парситися"
+            "A complex binary expression should parse successfully"
         );
         Ok(())
     }
@@ -180,7 +180,7 @@ mod expression_tests {
     fn test_function_call() -> Result<()> {
         let code = "calculate(x, y)";
         let result = parse_expression(code);
-        assert!(result.is_ok(), "Виклик функції повинен парситися");
+        assert!(result.is_ok(), "A function call should parse successfully");
         Ok(())
     }
 
@@ -214,21 +214,21 @@ mod type_name_tests {
     #[test]
     fn test_boolean_type() -> Result<()> {
         let result = parse_type_name("bool");
-        assert!(result.is_ok(), "Тип bool повинен парситися");
+        assert!(result.is_ok(), "The type bool should parse successfully");
         Ok(())
     }
 
     #[test]
     fn test_string_type() -> Result<()> {
         let result = parse_type_name("String");
-        assert!(result.is_ok(), "Тип String повинен парситися");
+        assert!(result.is_ok(), "The type String should parse successfully");
         Ok(())
     }
 
     #[test]
     fn test_custom_type() -> Result<()> {
         let result = parse_type_name("CustomType");
-        assert!(result.is_ok(), "Користувацький тип повинен парситися");
+        assert!(result.is_ok(), "A custom type should parse successfully");
         Ok(())
     }
 }
@@ -240,7 +240,7 @@ mod program_tests {
     fn test_empty_program() -> Result<()> {
         let code = "";
         let result = parse_carbon(code);
-        assert!(result.is_ok(), "Порожня програма повинна парситися");
+        assert!(result.is_ok(), "An empty program should parse successfully");
         Ok(())
     }
 
@@ -254,7 +254,7 @@ mod program_tests {
         let result = parse_carbon(code);
         assert!(
             result.is_ok(),
-            "Програма з однією функцією повинна парситися"
+            "A program with a single function should parse successfully"
         );
         Ok(())
     }
@@ -273,7 +273,7 @@ mod program_tests {
         let result = parse_carbon(code);
         assert!(
             result.is_ok(),
-            "Програма з декількома функціями повинна парситися"
+            "A program with multiple functions should parse successfully"
         );
         Ok(())
     }
@@ -289,22 +289,22 @@ mod program_tests {
             }
         "#;
         let result = parse_carbon(code);
-        assert!(result.is_ok(), "Програма зі змінними повинна парситися");
+        assert!(result.is_ok(), "A program with variables should parse successfully");
         Ok(())
     }
 
     #[test]
     fn test_program_with_comments() -> Result<()> {
         let code = r#"
-            // Це коментар
+            // This is a comment
             fn main() -> i32 {
-                /* Багаторядковий
-                   коментар */
+                /* Multi-line
+                   comment */
                 return 0;
             }
         "#;
         let result = parse_carbon(code);
-        assert!(result.is_ok(), "Програма з коментарями повинна парситися");
+        assert!(result.is_ok(), "A program with comments should parse successfully");
         Ok(())
     }
 
@@ -323,12 +323,11 @@ mod program_tests {
             }
         "#;
         let result = parse_carbon(code);
-        assert!(result.is_ok(), "Складна програма повинна парситися");
+        assert!(result.is_ok(), "A complex program should parse successfully");
         Ok(())
     }
 }
 
-/// Тести для негативних випадків
 mod error_tests {
     use super::*;
 
@@ -338,7 +337,7 @@ mod error_tests {
         let result = parse_carbon(code);
         assert!(
             result.is_err(),
-            "Невалідний синтаксис повинен викликати помилку"
+            "Invalid syntax should produce an error"
         );
     }
 
@@ -348,7 +347,7 @@ mod error_tests {
         let result = parse_var_decl(code);
         assert!(
             result.is_err(),
-            "Відсутність крапки з комою повинна викликати помилку"
+            "A missing semicolon should produce an error"
         );
     }
 
@@ -358,7 +357,7 @@ mod error_tests {
         let result = parse_var_decl(code);
         assert!(
             result.is_err(),
-            "Невалідний ідентифікатор повинен викликати помилку"
+            "An invalid identifier should produce an error"
         );
     }
 }
