@@ -6,7 +6,7 @@ use std::path::PathBuf;
 #[derive(Parser)]
 #[command(name = "carbon-parser")]
 #[command(author = "Daniil Cherniavskyi")]
-#[command(version = "0.1.0")]
+#[command(version = "0.1.2")]
 #[command(about = "A parser for the Carbon language", long_about = None)]
 struct Cli {
     #[command(subcommand)]
@@ -37,7 +37,7 @@ fn main() {
             }
         }
         Commands::Authors => {
-            println!("Carbon Parser v0.1.0");
+            println!("Carbon Parser v0.1.2");
             println!("Author: Daniil Cherniavskyi");
             println!("\nParser for Google's Carbon programming language");
             println!("Built with Rust and the Pest library");
