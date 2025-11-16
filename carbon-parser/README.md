@@ -1,36 +1,35 @@
 # Carbon Parser
 
-Парсер для мови програмування Carbon від Google, написаний на Rust з використанням бібліотеки Pest.
+A parser for Google's Carbon programming language, written in Rust using the Pest library.
+## Description:
 
-## Опис
+**Carbon Parser** is a tool for syntactic analysis of Carbon language code. The parser processes Carbon source code and builds an Abstract Syntax Tree (AST), which can be used for:
 
-**Carbon Parser** — це інструмент для синтаксичного аналізу коду мови Carbon. Парсер розбирає вихідний код Carbon та будує абстрактне синтаксичне дерево (AST), яке може використовуватися для:
+- Static code analysis.
+- Creating compilers and interpreters.
+- Code formatting tools.
+- IDE integration and syntax highlighting.
+- Code analysis and refactoring.
 
-- Статичного аналізу коду
-- Створення компіляторів та інтерпретаторів
-- Інструментів форматування коду
-- IDE-інтеграції та підсвічування синтаксису
-- Аналізу та рефакторингу коду
+## Technical Description of the Parsing Process:
 
-## Технічний опис процесу парсингу
+### Parsing Stages:
 
-### Етапи парсингу
+1. **Lexical Analysis**: Input text is tokenized into identifiers, keywords, and literals.
+2. **Syntax Analysis**: Tokens are processed according to the grammatical rules of Carbon.
+3. **AST Construction**: A tree-like structure representing the program's syntax is created.
 
-1. **Лексичний аналіз**: Вхідний текст розбивається на токени (ідентифікатори, ключові слова, літерали)
-2. **Синтаксичний аналіз**: Токени обробляються відповідно до граматичних правил Carbon
-3. **Побудова AST**: Створюється деревоподібна структура, що представляє синтаксис програми
+### What is parsed:
 
-### Що парситься
+The parser supports the following Carbon constructs:
 
-Парсер підтримує наступні конструкції Carbon:
+- **Function Declarations**: `fn FunctionName(param: Type) -> ReturnType { ... }`
+- **Variable Declarations**: `var variable_name: Type = value;`
+- **Data Types**: basic types (`i32`, `f64`, `bool`, `String`)
+- **Expressions**: arithmetic operations, function calls, literals
+- **Коментарі**: single-line (`//`) and multi-line (`/* */`)
 
-- **Декларації функцій**: `fn FunctionName(param: Type) -> ReturnType { ... }`
-- **Декларації змінних**: `var variable_name: Type = value;`
-- **Типи даних**: базові типи (`i32`, `f64`, `bool`, `String`)
-- **Вирази**: арифметичні операції, виклики функцій, літерали
-- **Коментарі**: однорядкові (`//`) та багаторядкові (`/* */`)
-
-### Граматичні правила
+### Grammar Rules:
 ```pest
 program = { SOI ~ (function_decl | var_decl)* ~ EOI }
 
@@ -47,16 +46,16 @@ statement = { var_decl | expression ~ ";" | return_stmt }
 expression = { literal | identifier | binary_expr | function_call }
 ```
 
-### Використання результатів
+### Using the Results:
 
-Результат парсингу — це `Pairs<Rule>` від Pest, який представляє дерево розбору. Це дерево можна:
+The parsing result is a `Pairs<Rule>` from Pest, which represents the parse tree. This tree can be:
 
-- Трансформувати в типізоване AST для подальшої обробки
-- Використати для валідації синтаксису
-- Перетворити в інші формати (JSON, XML)
-- Застосувати для аналізу коду та метрик
+- Transformed into a typed AST for further processing.
+- Used for syntax validation.
+- Converted to other formats (JSON, XML).
+- Applied for code analysis and metrics.
 
-## Діаграма граматики
+## Grammar Diagram:
 ```
 Program
 ├── FunctionDecl*
@@ -72,33 +71,33 @@ Program
     └── Expression (опціонально)
 ```
 
-## Встановлення
+## Installation:
 ```bash
 cargo install carbon-parser
 ```
 
-Або клонуйте репозиторій:
+Or clone the repository:
 ```bash
 git clone https://github.com/tajmaha1/carbon-parser
 cd carbon-parser
 cargo build --release
 ```
 
-## Використання
+## Usage:
 
 ### CLI
 ```bash
-# Парсинг файлу
+# Parse a file
 carbon-parser parse input.carbon
 
-# Показати допомогу
+# Show help
 carbon-parser help
 
-# Показати інформацію про авторів
+# Show version
 carbon-parser --version
 ```
 
-### Як бібліотека
+### As a Library:
 ```rust
 use carbon_parser::{parse_carbon, CarbonParser};
 
@@ -117,62 +116,62 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-## Розробка
+## Development:
 
-### Запуск тестів
+### Running Tests:
 ```bash
 make test
 ```
 
-### Форматування коду
+### Code Formatting:
 ```bash
 make fmt
 ```
 
-### Лінтинг
+### Linting:
 ```bash
 make clippy
 ```
 
-### Запуск програми
+### Running the Program:
 ```bash
 make run
 ```
 
-### Перед комітом
+### Before Committing:
 ```bash
 make pre-commit
 ```
 
-## Тестування
+## Testing:
 
-Проект містить модульні тести для кожного граматичного правила:
+The project contains unit tests for each grammar rule:
 
-- Тести декларацій функцій
-- Тести декларацій змінних
-- Тести виразів
-- Тести типів
-- Тести коментарів
+- Tests for function declarations.
+- Tests for variable declarations.
+- Tests for expressions.
+- Tests for types.
+- Tests for comments.
 
-Запуск тестів: `cargo test`
+Run tests: `cargo test`
 
-## Документація
+## Documentation:
 
-Повна документація доступна на [docs.rs/carbon-parser](https://docs.rs/carbon-parser)
+Full documentation is available at [docs.rs/carbon-parser](https://docs.rs/carbon-parser)
 
-Локальна документація:
+Local documentation:
 ```bash
 cargo doc --open
 ```
 
-## Ліцензія
+## License:
 
-Цей проект розповсюджується під подвійною ліцензією MIT/Apache-2.0.
+This project is distributed under the dual MIT/Apache-2.0 license.
 
-## Автор
+## Author:
 
 [Daniil Cherniavskyi] - [rembo9028@gmail.com]
 
-## Внесок
+## Contribution:
 
-Вітаються pull requests. Для значних змін спочатку відкрийте issue для обговорення.
+Pull requests are welcome. For significant changes, please open an issue first to discuss.
